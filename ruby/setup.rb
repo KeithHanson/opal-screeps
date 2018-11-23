@@ -1,3 +1,3 @@
 require 'debug'
-require 'body_parts'
+require 'globals'
 require 'war_supervisor'

@@ -2,7 +2,7 @@ class Debug
   DEBUG = true
 
   def self.debug(msg)
-    puts "#{Time.now.strftime("%H:%M:%S")} | #{msg}" if DEBUG
+    puts "(DEBUG) #{Time.now.strftime("%H:%M:%S")} | #{msg}" if DEBUG
   end
 
   def self.always_log(msg)
@@ -10,6 +10,6 @@ class Debug
   end
 
   def self.separator(msg)
-    puts "*" * 10 + " #{msg} #{Time.now.strftime("%H:%M:%S")} " + "*" * 10
+    puts "*" * 10 + "(DEBUG: #{Debug::DEBUG} | #{Time.now.strftime("%H:%M:%S")}) #{msg}" + "*" * 10
   end
 end

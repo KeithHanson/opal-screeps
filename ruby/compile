@@ -1,2 +1,2 @@
 #!/usr/bin/env sh
-opal -c ruby/main.rb -I ./ -I ./ruby -I $GEM_HOME/gems/opal-eventable-0.0.1/lib/ > compiled.js && node ruby/upload.js
+opal -c ruby/main.rb -I ./ -I ./ruby > compiled.js && node ruby/upload.js

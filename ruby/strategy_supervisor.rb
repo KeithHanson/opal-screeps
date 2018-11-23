@@ -5,24 +5,23 @@ class StrategySupervisor
   end
 
   def tick!
-    Debug.always_log("StrategySupervisor Tick!")
+    Debug.debug("StrategySupervisor Tick!")
 
     calculate_strategy
 
-    Debug.always_log("StrategySupervisor Tock!")
+    Debug.debug("StrategySupervisor Tock!")
   end
 
   def initialize
-    @@strategy = "build"
+    @@strategy = "begin"
   end
 
   def calculate_strategy
-    Debug.always_log("Calculating Strategy...")
+    Debug.debug("Calculating Strategy...")
 
     # Do some calculating stuff here
 
-
-    Debug.always_log("Strategy Calculated: #{@@strategy}")
+    Debug.debug("Strategy Calculated: #{@@strategy}")
   end
 
   def self.strategy
