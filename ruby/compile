@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+opal -c ruby/main.rb -I ./ -I ./ruby > compiled.js && node ruby/upload.js
