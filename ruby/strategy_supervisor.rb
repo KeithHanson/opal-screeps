@@ -1,4 +1,6 @@
 class StrategySupervisor
+  attr_accessor :strategy
+
   def self.shared
     @@supervisor ||= self.new
     @@supervisor
@@ -13,7 +15,7 @@ class StrategySupervisor
   end
 
   def initialize
-    @@strategy = "begin"
+    self.strategy = "begin"
   end
 
   def calculate_strategy
@@ -21,10 +23,10 @@ class StrategySupervisor
 
     # Do some calculating stuff here
 
-    Debug.debug("Strategy Calculated: #{@@strategy}")
+    Debug.debug("Strategy Calculated: #{self.strategy}")
   end
 
   def self.strategy
-    @@strategy
+    self.shared.strategy
   end
 end

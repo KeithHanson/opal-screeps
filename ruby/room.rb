@@ -8,7 +8,7 @@ class Room
     self.creeps = []
 
     self.screeps_room.find(FIND_MY_CREEPS).each do |creep_obj|
-      self.creeps << Creep.new(creep_obj)
+      self.creeps << Creep.new(creep_obj[:name])
     end
 
     Debug.debug "Loaded #{self.creeps.length} creeps in room #{self.name}"
@@ -22,7 +22,7 @@ class Room
     Debug.debug "Room #{self.name} tick!"
 
     self.creeps.each do |creep|
-      Debug.debug "Creep: #{creep.name} TTL: #{creep.ttl}"
+      creep.tick!
     end
 
     Debug.debug "Room #{self.name} tock!"
