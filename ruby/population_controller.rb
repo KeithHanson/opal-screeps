@@ -16,7 +16,7 @@ class PopulationController
     Debug.debug("PopulationController population: #{self.all_creeps.length} creeps")
 
     if self.all_creeps.length == 0
-      GAME[:spawns]['Spawn1'].spawnCreep([CARRY, WORK, MOVE], "Creep1")
+      Native(`Game`)[:spawns]['Spawn1'].spawnCreep([CARRY, WORK, MOVE], "Creep1")
     end
 
     self.generate_tasks
@@ -37,9 +37,9 @@ class PopulationController
   def refresh
     self.all_creeps = []
 
-    GAME[:creeps].each do |creep|
+    Native(`Game`)[:creeps].each do |creep|
       puts creep
-      self.all_creeps << Creep.new(GAME[:creeps][creep][:name])
+      self.all_creeps << Creep.new(Native(`Game`)[:creeps][creep][:name])
     end
 
     analyze_capabilities

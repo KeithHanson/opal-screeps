@@ -9,7 +9,7 @@ class Creep
 
 
   def creep_obj
-    GAME[:creeps][self.creep_name]
+    Native(`Game`)[:creeps][self.creep_name]
   end
 
   def refresh
@@ -21,7 +21,7 @@ class Creep
   end
 
   def body_parts
-    @body_parts ||= GAME[:creeps][self.creep_name].body.map do |part|
+    @body_parts ||= Native(`Game`)[:creeps][self.creep_name].body.map do |part|
       part[:type].to_s
     end
 

@@ -36,7 +36,8 @@ class RoomSupervisor
   def refresh
     self.rooms = []
 
-    GAME[:rooms].each do |room_name|
+
+    Native(`Game`)[:rooms].each do |room_name|
       new_room = Room.new(room_name)
       self.rooms << new_room
       ThreatAssessor.assess(new_room)

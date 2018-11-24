@@ -15,7 +15,7 @@ class Room
   end
 
   def screeps_room
-    GAME[:rooms][self.name] 
+    Native(`Game`)[:rooms][self.name] 
   end
 
   def tick!

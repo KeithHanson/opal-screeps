@@ -22576,7 +22576,6 @@ Opal.modules["globals"] = function(Opal) {
   Opal.add_stubs(['$require', '$Native']);
   
   self.$require("native");
-  Opal.const_set($nesting[0], 'GAME', self.$Native(Game));
   Opal.const_set($nesting[0], 'WORK', self.$Native(WORK));
   Opal.const_set($nesting[0], 'CARRY', self.$Native(CARRY));
   Opal.const_set($nesting[0], 'MOVE', self.$Native(MOVE));
@@ -22683,7 +22682,7 @@ Opal.modules["creep"] = function(Opal) {
   }
   var self = Opal.top, $nesting = [], nil = Opal.nil, $breaker = Opal.breaker, $slice = Opal.slice, $klass = Opal.klass, $send = Opal.send, $truthy = Opal.truthy;
 
-  Opal.add_stubs(['$attr_accessor', '$creep_name=', '$-', '$current_task=', '$[]', '$creep_name', '$creep_obj', '$name=', '$ttl=', '$hits=', '$hits_max=', '$fatigue=', '$map', '$body', '$to_s', '$refresh', '$debug', '$name', '$hits', '$hits_max', '$ttl', '$fatigue']);
+  Opal.add_stubs(['$attr_accessor', '$creep_name=', '$-', '$current_task=', '$[]', '$Native', '$creep_name', '$creep_obj', '$name=', '$ttl=', '$hits=', '$hits_max=', '$fatigue=', '$map', '$body', '$to_s', '$refresh', '$debug', '$name', '$hits', '$hits_max', '$ttl', '$fatigue']);
   return (function($base, $super, $parent_nesting) {
     function $Creep(){};
     var self = $Creep = $klass($base, $super, 'Creep', $Creep);
@@ -22711,7 +22710,7 @@ Opal.modules["creep"] = function(Opal) {
     Opal.defn(self, '$creep_obj', TMP_Creep_creep_obj_2 = function $$creep_obj() {
       var self = this;
 
-      return Opal.const_get_relative($nesting, 'GAME')['$[]']("creeps")['$[]'](self.$creep_name())
+      return self.$Native(Game)['$[]']("creeps")['$[]'](self.$creep_name())
     }, TMP_Creep_creep_obj_2.$$arity = 0);
     
     Opal.defn(self, '$refresh', TMP_Creep_refresh_3 = function $$refresh() {
@@ -22744,7 +22743,7 @@ Opal.modules["creep"] = function(Opal) {
       var $a, TMP_4, self = this;
 
       
-      self.body_parts = ($truthy($a = self.body_parts) ? $a : $send(Opal.const_get_relative($nesting, 'GAME')['$[]']("creeps")['$[]'](self.$creep_name()).$body(), 'map', [], (TMP_4 = function(part){var self = TMP_4.$$s || this;
+      self.body_parts = ($truthy($a = self.body_parts) ? $a : $send(self.$Native(Game)['$[]']("creeps")['$[]'](self.$creep_name()).$body(), 'map', [], (TMP_4 = function(part){var self = TMP_4.$$s || this;
 if (part == null) part = nil;
       return part['$[]']("type").$to_s()}, TMP_4.$$s = self, TMP_4.$$arity = 1, TMP_4)));
       return self.body_parts;
@@ -22783,7 +22782,7 @@ Opal.modules["room"] = function(Opal) {
   }
   var self = Opal.top, $nesting = [], nil = Opal.nil, $breaker = Opal.breaker, $slice = Opal.slice, $klass = Opal.klass, $send = Opal.send;
 
-  Opal.add_stubs(['$require', '$attr_accessor', '$name=', '$-', '$creeps=', '$each', '$find', '$screeps_room', '$<<', '$creeps', '$new', '$[]', '$debug', '$length', '$name', '$tick!']);
+  Opal.add_stubs(['$require', '$attr_accessor', '$name=', '$-', '$creeps=', '$each', '$find', '$screeps_room', '$<<', '$creeps', '$new', '$[]', '$debug', '$length', '$name', '$Native', '$tick!']);
   
   self.$require("creep");
   return (function($base, $super, $parent_nesting) {
@@ -22816,7 +22815,7 @@ if (creep_obj == null) creep_obj = nil;
     Opal.defn(self, '$screeps_room', TMP_Room_screeps_room_3 = function $$screeps_room() {
       var self = this;
 
-      return Opal.const_get_relative($nesting, 'GAME')['$[]']("rooms")['$[]'](self.$name())
+      return self.$Native(Game)['$[]']("rooms")['$[]'](self.$name())
     }, TMP_Room_screeps_room_3.$$arity = 0);
     return (Opal.defn(self, '$tick!', TMP_Room_tick$B_5 = function() {
       var TMP_4, self = this;
@@ -23111,7 +23110,7 @@ Opal.modules["population_controller"] = function(Opal) {
   }
   var self = Opal.top, $nesting = [], nil = Opal.nil, $breaker = Opal.breaker, $slice = Opal.slice, $klass = Opal.klass, $truthy = Opal.truthy, $send = Opal.send, $hash2 = Opal.hash2;
 
-  Opal.add_stubs(['$require', '$attr_accessor', '$new', '$debug', '$refresh', '$length', '$all_creeps', '$==', '$spawnCreep', '$[]', '$generate_tasks', '$strategy', '$shared', '$===', '$capability_breakdown', '$all_creeps=', '$-', '$each', '$puts', '$<<', '$analyze_capabilities', '$creeps_by_parts=', '$capability_breakdown=', '$body_parts', '$creeps_by_parts', '$[]=', '$name', '$analyze_creep', '$creep_name', '$include?']);
+  Opal.add_stubs(['$require', '$attr_accessor', '$new', '$debug', '$refresh', '$length', '$all_creeps', '$==', '$spawnCreep', '$[]', '$Native', '$generate_tasks', '$strategy', '$shared', '$===', '$capability_breakdown', '$all_creeps=', '$-', '$each', '$puts', '$<<', '$analyze_capabilities', '$creeps_by_parts=', '$capability_breakdown=', '$body_parts', '$creeps_by_parts', '$[]=', '$name', '$analyze_creep', '$creep_name', '$include?']);
   
   self.$require("strategies/begin_strategy");
   return (function($base, $super, $parent_nesting) {
@@ -23138,7 +23137,7 @@ Opal.modules["population_controller"] = function(Opal) {
       self.$refresh();
       Opal.const_get_relative($nesting, 'Debug').$debug("" + "PopulationController population: " + (self.$all_creeps().$length()) + " creeps");
       if (self.$all_creeps().$length()['$=='](0)) {
-        Opal.const_get_relative($nesting, 'GAME')['$[]']("spawns")['$[]']("Spawn1").$spawnCreep([Opal.const_get_relative($nesting, 'CARRY'), Opal.const_get_relative($nesting, 'WORK'), Opal.const_get_relative($nesting, 'MOVE')], "Creep1")};
+        self.$Native(Game)['$[]']("spawns")['$[]']("Spawn1").$spawnCreep([Opal.const_get_relative($nesting, 'CARRY'), Opal.const_get_relative($nesting, 'WORK'), Opal.const_get_relative($nesting, 'MOVE')], "Creep1")};
       self.$generate_tasks();
       return Opal.const_get_relative($nesting, 'Debug').$debug("PopulationController Tock!");
     }, TMP_PopulationController_tick$B_2.$$arity = 0);
@@ -23161,11 +23160,11 @@ Opal.modules["population_controller"] = function(Opal) {
       $writer = [[]];
       $send(self, 'all_creeps=', Opal.to_a($writer));
       $writer[$rb_minus($writer["length"], 1)];;
-      $send(Opal.const_get_relative($nesting, 'GAME')['$[]']("creeps"), 'each', [], (TMP_4 = function(creep){var self = TMP_4.$$s || this;
+      $send(self.$Native(Game)['$[]']("creeps"), 'each', [], (TMP_4 = function(creep){var self = TMP_4.$$s || this;
 if (creep == null) creep = nil;
       
         self.$puts(creep);
-        return self.$all_creeps()['$<<'](Opal.const_get_relative($nesting, 'Creep').$new(Opal.const_get_relative($nesting, 'GAME')['$[]']("creeps")['$[]'](creep)['$[]']("name")));}, TMP_4.$$s = self, TMP_4.$$arity = 1, TMP_4));
+        return self.$all_creeps()['$<<'](Opal.const_get_relative($nesting, 'Creep').$new(self.$Native(Game)['$[]']("creeps")['$[]'](creep)['$[]']("name")));}, TMP_4.$$s = self, TMP_4.$$arity = 1, TMP_4));
       return self.$analyze_capabilities();
     }, TMP_PopulationController_refresh_5.$$arity = 0);
     
@@ -23253,7 +23252,7 @@ Opal.modules["room_supervisor"] = function(Opal) {
   }
   var self = Opal.top, $nesting = [], nil = Opal.nil, $breaker = Opal.breaker, $slice = Opal.slice, $klass = Opal.klass, $send = Opal.send, $truthy = Opal.truthy;
 
-  Opal.add_stubs(['$require', '$attr_accessor', '$supervisors=', '$-', '$rooms=', '$<<', '$supervisors', '$shared', '$new', '$debug', '$refresh', '$each', '$tick!', '$rooms', '$[]', '$assess']);
+  Opal.add_stubs(['$require', '$attr_accessor', '$supervisors=', '$-', '$rooms=', '$<<', '$supervisors', '$shared', '$new', '$debug', '$refresh', '$each', '$tick!', '$rooms', '$[]', '$Native', '$assess']);
   
   self.$require("room");
   self.$require("threat_assessor");
@@ -23313,7 +23312,7 @@ if (room == null) room = nil;
       $writer = [[]];
       $send(self, 'rooms=', Opal.to_a($writer));
       $writer[$rb_minus($writer["length"], 1)];;
-      return $send(Opal.const_get_relative($nesting, 'GAME')['$[]']("rooms"), 'each', [], (TMP_6 = function(room_name){var self = TMP_6.$$s || this, new_room = nil;
+      return $send(self.$Native(Game)['$[]']("rooms"), 'each', [], (TMP_6 = function(room_name){var self = TMP_6.$$s || this, new_room = nil;
 if (room_name == null) room_name = nil;
       
         new_room = Opal.const_get_relative($nesting, 'Room').$new(room_name);

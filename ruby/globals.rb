@@ -1,8 +1,5 @@
 require 'native'
 
-# Main objects
-GAME = Native(`Game`)
-
 # body parts
 WORK = Native(`WORK`)
 CARRY = Native(`CARRY`)
