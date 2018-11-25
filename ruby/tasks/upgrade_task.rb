@@ -1,9 +1,9 @@
 require 'task'
 
-class MiningTask < Task
+class UpgradeTask
   def execute
     owner = self.get_owner
 
-    Debug.debug "Executing MiningTask"
+    Debug.debug "Executing UpgradeTask"
   end
 end

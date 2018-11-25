@@ -1,17 +1,13 @@
 require 'room'
 require 'threat_assessor'
-require 'resource_supervisor'
-require 'population_controller'
 
 class RoomSupervisor
-  attr_accessor :rooms, :supervisors
+  attr_accessor :rooms
 
   def initialize
-    self.supervisors = []
     self.rooms = []
 
-    self.supervisors << ResourceSupervisor.shared
-    self.supervisors << PopulationController.shared
+    self.refresh
   end
 
   def self.shared
@@ -23,8 +19,6 @@ class RoomSupervisor
     Debug.debug("RoomSupervisor Tick!")
 
     refresh
-
-    self.supervisors.each {|s| s.tick!}
 
     self.rooms.each do |room|
       room.tick!
@@ -38,9 +32,14 @@ class RoomSupervisor
 
 
     Native(`Game`)[:rooms].each do |room_name|
-      new_room = Room.new(room_name)
-      self.rooms << new_room
-      ThreatAssessor.assess(new_room)
+      room_obj = Room.get_room_by_name(room_name)
+
+      unless room_obj[:controller].nil?
+        new_room = Room.new(room_name)
+        new_room.threat_level = ThreatAssessor.assess(new_room)
+
+        self.rooms << new_room
+      end
     end
   end
 end

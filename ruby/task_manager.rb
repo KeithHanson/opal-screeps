@@ -15,17 +15,28 @@ class TaskManager
     desired_tasks = self.tasks.select {|t| t.name == task.name} || []
 
     Debug.debug "desired_tasks: #{desired_tasks.length} | duplicates_allowed: #{duplicates_allowed}"
-    if duplicates_allowed >= 1 && desired_tasks.length < duplicates_allowed
+
+    if duplicates_allowed >= 1 && 
+       desired_tasks.length < duplicates_allowed
       self.tasks << task
     end
+  end
 
-    Debug.debug "Printing tasks"
-    print_tasks
+  def tick!
+    self.tasks.each do |task|
+      unless task.assigned_id || task.completed
+        task.execute
+      end
+    end
   end
 
   def print_tasks
-    self.tasks.each do |t|
-      Debug.debug t
+    if Debug.print_tasks
+      Debug.always_log "Task Count: #{self.tasks.length}"
+      self.tasks.each do |t|
+        Debug.always_log t
+      end
     end
   end
 end
+

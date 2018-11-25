@@ -1,12 +1,13 @@
 class Creep
   attr_accessor :creep_name, :name, :ttl, :hits, :hits_max, :fatigue, 
-                :current_task
+                :current_task, :body_parts
 
   def initialize(name)
     self.creep_name = name
     self.current_task = nil
-  end
 
+    self.refresh
+  end
 
   def creep_obj
     Native(`Game`)[:creeps][self.creep_name]
@@ -21,7 +22,7 @@ class Creep
   end
 
   def body_parts
-    @body_parts ||= Native(`Game`)[:creeps][self.creep_name].body.map do |part|
+    @body_parts ||= self.creep_obj.body.map do |part|
       part[:type].to_s
     end
 

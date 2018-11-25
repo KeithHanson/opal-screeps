@@ -1,3 +1,5 @@
+require 'room'
+
 class StrategySupervisor
   attr_accessor :strategy
 
@@ -18,10 +20,21 @@ class StrategySupervisor
     self.strategy = "begin"
   end
 
+  def calculate_strategy_for_room(room)
+    puts "Calculating Strategy for Room #{room.name}"
+
+    room.strategy = BeginStrategy
+
+    puts "Room Info: #{room.name} | Strategy: #{room.strategy.to_s} | #{room.energy_available}/#{room.energy_capacity_available} | #{room.spawns.length} spawns | #{room.creeps.length} creeps"
+
+  end
+
   def calculate_strategy
     Debug.debug("Calculating Strategy...")
 
-    # Do some calculating stuff here
+    RoomSupervisor.shared.rooms.each do |room|
+      self.calculate_strategy_for_room(room)
+    end
 
     Debug.debug("Strategy Calculated: #{self.strategy}")
   end

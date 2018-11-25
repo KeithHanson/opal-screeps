@@ -1,23 +1,20 @@
 require 'strategies/begin_strategy'
 
 class PopulationController
-  attr_accessor :all_creeps, :creeps_by_parts, :capability_breakdown
+  attr_accessor :room, :creeps_by_parts, :capability_breakdown
 
-  def self.shared
-    @@supervisor ||= self.new
-    @@supervisor
+  def initialize(room)
+    self.capability_breakdown = {}
+    self.creeps_by_parts = {}
+    self.room = room
+
+    self.refresh
   end
 
   def tick!
     Debug.debug("PopulationController Tick!")
 
     self.refresh
-
-    Debug.debug("PopulationController population: #{self.all_creeps.length} creeps")
-
-    if self.all_creeps.length == 0
-      Native(`Game`)[:spawns]['Spawn1'].spawnCreep([CARRY, WORK, MOVE], "Creep1")
-    end
 
     self.generate_tasks
 
@@ -35,13 +32,6 @@ class PopulationController
   end
 
   def refresh
-    self.all_creeps = []
-
-    Native(`Game`)[:creeps].each do |creep|
-      puts creep
-      self.all_creeps << Creep.new(Native(`Game`)[:creeps][creep][:name])
-    end
-
     analyze_capabilities
   end
 
@@ -49,7 +39,7 @@ class PopulationController
     self.creeps_by_parts = {}
     self.capability_breakdown = {}
 
-    self.all_creeps.each do |creep|
+    self.room.creeps.each do |creep|
       creep.body_parts.each do |part|
         self.creeps_by_parts[part] ||= []
         self.creeps_by_parts[part] << creep.name
@@ -84,11 +74,5 @@ class PopulationController
   def print_capabilities
     Debug.debug "Printing Capabilities:"
     Debug.debug self.capability_breakdown
-  end
-
-  def initialize
-    self.all_creeps = []
-    self.capability_breakdown = {}
-    self.creeps_by_parts = {}
   end
 end

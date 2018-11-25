@@ -9,12 +9,26 @@ class BeginStrategy < Strategy
 
   def self.generate_tasks(capabilities)
     Debug.debug "BeginStrat: Generating Tasks."
+
+    Debug.debug "Capabilities: "
     Debug.debug capabilities
 
-    self.requirements.each_pair do |role, count|
-      if capabilities[role] && count > 0 && capabilities[role].length < count
+    Debug.debug "Requirements: "
+    Debug.debug self.requirements
 
-        Debug.debug "count: #{count} | role: #{role} | capabilities[role]: #{capabilities[role].length}"
+    if capabilities == {}
+      Debug.debug "Bootstrapper Needed!"
+
+      task = SpawnTask.new("bootstrapper", {parts: [WORK, CARRY, MOVE], prefix: "bootstrapper"} )
+
+      TaskManager.shared.add_task(task, 1)
+    end
+
+    self.requirements.each_pair do |role, count|
+      capabilities_for_role = (capabilities[role].nil? ? [] : capabilities[role])
+      if count > 0 && capabilities_for_role.length < count
+
+        Debug.debug "count: #{count} | role: #{role} | capabilities[role]: #{capabilities_for_role.length}"
         Debug.debug "Creating Task to Spawn: #{role}"
 
         self.create_spawn_task(role, count)

@@ -4,6 +4,15 @@ class Debug
     puts "Quiet Mode #{@@quiet ? "Activated" : "Deactivated"}"
   end
 
+  def self.toggle_tasks
+    @@tasks = !@@tasks 
+    puts "Tasks Mode #{@@tasks ? "Activated" : "Deactivated"}"
+  end
+
+  def self.print_tasks
+    @@tasks
+  end
+
   def self.toggle
     @@debugging = !@@debugging
     puts "Debug Mode #{@@debugging ? "Activated" : "Deactivated"}"
