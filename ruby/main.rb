@@ -7,8 +7,6 @@ class ScreepsEntry
 
     WarSupervisor.shared.tick!
 
-    TaskManager.shared.print_tasks
-
     Debug.separator("end loop")
   end
 end

@@ -1,12 +1,9 @@
 class TaskManager
-  attr_accessor :tasks
+  attr_accessor :population_controller, :tasks
 
-  def self.shared
-    @@manager ||= self.new
-  end
-
-  def initialize
+  def initialize(population_controller)
     self.tasks = []
+    self.population_controller = population_controller
   end
 
   def add_task(task, duplicates_allowed = 1)
@@ -18,13 +15,15 @@ class TaskManager
 
     if duplicates_allowed >= 1 && 
        desired_tasks.length < duplicates_allowed
+      
+      task.task_manager = self
       self.tasks << task
     end
   end
 
   def tick!
     self.tasks.each do |task|
-      unless task.assigned_id || task.completed
+      unless task.completed
         task.execute
       end
     end
@@ -32,7 +31,7 @@ class TaskManager
 
   def print_tasks
     if Debug.print_tasks
-      Debug.always_log "Task Count: #{self.tasks.length}"
+      Debug.always_log "[#{self.population_controller.room.name}] Task Count: #{self.tasks.length}"
       self.tasks.each do |t|
         Debug.always_log t
       end

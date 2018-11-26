@@ -7,7 +7,10 @@ class BeginStrategy < Strategy
     { miner: 5, builder: 0, supplier: 0, upgrader: 0, healer: 0 }
   end
 
-  def self.generate_tasks(capabilities)
+  def self.generate_tasks(capabilities, room)
+    Debug.debug "Generating tasks for room #{room.name}"
+    task_manager = room.population_controller.task_manager
+
     Debug.debug "BeginStrat: Generating Tasks."
 
     Debug.debug "Capabilities: "
@@ -19,25 +22,29 @@ class BeginStrategy < Strategy
     if capabilities == {}
       Debug.debug "Bootstrapper Needed!"
 
-      task = SpawnTask.new("bootstrapper", {parts: [WORK, CARRY, MOVE], prefix: "bootstrapper"} )
+      task = SpawnTask.new("bootstrapper", {parts: [WORK, CARRY, MOVE], prefix: "bootstrapper", room_name: room.name} )
 
-      TaskManager.shared.add_task(task, 1)
+      task_manager.add_task(task, 1)
     end
 
     self.requirements.each_pair do |role, count|
       capabilities_for_role = (capabilities[role].nil? ? [] : capabilities[role])
-      if count > 0 && capabilities_for_role.length < count
 
+      if count > 0 && capabilities_for_role.length < count
         Debug.debug "count: #{count} | role: #{role} | capabilities[role]: #{capabilities_for_role.length}"
         Debug.debug "Creating Task to Spawn: #{role}"
 
-        self.create_spawn_task(role, count)
+        real_count = count - capabilities_for_role.length
+
+        real_count.times do
+          self.create_spawn_task(role, real_count, room)
+        end
       end
     end
   end
 
-  def self.create_spawn_task(role, count)
-    task = SpawnTask.new(role, {parts: [WORK, CARRY, MOVE], prefix: "miner"} )
-    TaskManager.shared.add_task(task, count)
+  def self.create_spawn_task(role, count, room)
+    task = SpawnTask.new(role, {parts: [WORK, CARRY, MOVE], prefix: "miner", room_name: room.name} )
+    room.population_controller.task_manager.add_task(task, count)
   end
 end

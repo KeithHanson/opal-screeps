@@ -1,12 +1,15 @@
 require 'strategies/begin_strategy'
+require 'task_manager'
 
 class PopulationController
-  attr_accessor :room, :creeps_by_parts, :capability_breakdown
+  attr_accessor :room, :creeps_by_parts, :capability_breakdown, 
+                :task_manager
 
   def initialize(room)
     self.capability_breakdown = {}
     self.creeps_by_parts = {}
     self.room = room
+    self.task_manager = TaskManager.new(self)
 
     self.refresh
   end
@@ -18,16 +21,18 @@ class PopulationController
 
     self.generate_tasks
 
+    self.task_manager.print_tasks
+
+    self.task_manager.tick!
+
     Debug.debug("PopulationController Tock!")
   end
 
   def generate_tasks
-    case StrategySupervisor.shared.strategy
-    when "begin"
-      Debug.debug "Executing Begin Strategy"
+    Debug.debug "Room #{self.room.name} Strategy: #{self.room.strategy.to_s} | Generating Tasks"
 
-      BeginStrategy.generate_tasks(self.capability_breakdown)    
-    else
+    unless self.room.strategy.nil?
+      self.room.strategy.generate_tasks(self.capability_breakdown, self.room)
     end
   end
 

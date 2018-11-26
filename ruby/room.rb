@@ -16,10 +16,10 @@ class Room
     self.strategy = nil
     self.energy_available = 0
     self.energy_capacity_available = 0
+    self.refresh
 
     self.population_controller = PopulationController.new(self)
 
-    self.refresh
 
     Debug.debug "Loaded Room #{self.name}"
   end
@@ -46,6 +46,7 @@ class Room
 
   def tick!
     self.refresh
+
     Debug.debug "Room #{self.name} tick!"
 
     self.population_controller.tick!

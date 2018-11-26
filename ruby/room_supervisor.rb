@@ -1,5 +1,6 @@
 require 'room'
 require 'threat_assessor'
+require 'strategy_supervisor'
 
 class RoomSupervisor
   attr_accessor :rooms
@@ -21,6 +22,7 @@ class RoomSupervisor
     refresh
 
     self.rooms.each do |room|
+      StrategySupervisor.calculate_strategy_for_room(room)
       room.tick!
     end
 

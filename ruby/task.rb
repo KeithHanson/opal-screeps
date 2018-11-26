@@ -1,5 +1,5 @@
 class Task
-  attr_accessor :assigned_id, :name, :data, :completed
+  attr_accessor :assigned_id, :name, :data, :completed, :task_manager, :id
 
   def get_owner
     Debug.debug "Attempted to execute get_owner without overriding the base clase"
@@ -10,14 +10,16 @@ class Task
   end
 
 
-  def initialize(name, data)
+  def initialize(name, data, task_manager)
     self.name = name
     self.data = data
     self.completed = false
+    self.id = rand(1..1_000_000)
   end
 
   def execute
-    Debug.debug "Attempted to execute a task that has not been defined."
+    self.get_owner
+    Debug.debug "#{self.class.to_s} | Attempted to execute a task that has not been defined."
   end
 
   def to_s

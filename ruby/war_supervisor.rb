@@ -1,9 +1,10 @@
 require 'strategy_supervisor'
 require 'military_supervisor'
 require 'room_supervisor'
+require 'strategy_supervisor'
 
 class WarSupervisor
-  attr_accessor :supervisors, :military_supervisor, :room_supervisor
+  attr_accessor :supervisors, :military_supervisor, :room_supervisor, :strategy_supervisor
 
   def initialize
     self.supervisors = []

@@ -1,2 +1,4 @@
 #!/usr/bin/env sh
-opal -c ruby/main.rb -I ./ -I ./ruby -I ./ruby/tasks -I ./ruby/strategies > compiled.js && node ruby/upload.js
+#opal -c ruby/main.rb -I ./ -I ./ruby -I ./ruby/tasks -I ./ruby/strategies > compiled.js && node ruby/upload.js
+opal -c ruby/main.rb -I ./ -I ./ruby -I ./ruby/tasks -I ./ruby/strategies > compiled.js && echo "Compile Complete" && date #&& node ruby/upload.js
+
